@@ -9,6 +9,12 @@ pool:
   vmImage: windows-latest
 
 steps:
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloud'
+    organization: 'azure902'
+    scannerMode: 'Other'
 - task: Maven@4
   inputs:
     mavenPomFile: 'pom.xml'
@@ -17,16 +23,12 @@ steps:
     mavenVersionOption: 'Default'
     mavenAuthenticateFeed: false
     effectivePomSkip: false
-    sonarQubeRunAnalysis: false
-
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'SonarCloud'
-    organization: 'azure902'
-    scannerMode: 'Other'
+    sonarQubeRunAnalysis: true
+    sqMavenPluginVersionChoice: 'pom'
 
 - task: SonarCloudAnalyze@1
 
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
+ 
