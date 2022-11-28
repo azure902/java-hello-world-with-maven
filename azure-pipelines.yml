@@ -15,17 +15,18 @@ steps:
     SonarCloud: 'SonarCloud'
     organization: 'azure902'
     scannerMode: 'Other'
+
 - task: Maven@4
   inputs:
     mavenPomFile: 'pom.xml'
-    publishJUnitResults: false
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
     mavenVersionOption: 'Default'
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: true
-    sqMavenPluginVersionChoice: 'pom'
-
+    sqMavenPluginVersionChoice: 'latest'
 - task: SonarCloudAnalyze@1
 
 - task: SonarCloudPublish@1
